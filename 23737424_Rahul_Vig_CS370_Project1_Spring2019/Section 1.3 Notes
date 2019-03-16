@@ -1,0 +1,116 @@
+Section 1.3: Thermodynamic Definitions -> Quantum Spins
+
+Properties of Quantum Spins:
+
+1. A quantum spin s[i] is a variable that can only be one of two values +1 and -1.
+In relation to the metropolis algorithm, each spin will be the node and each configuration of the
+spins will be represented by an array that acts as a circular linked list. 
+
+2. There are n quantum spins s[i], i = 1,...,n.
+
+3. Spins arranged in circle, could use circular linked list, but it's more efficient to 
+use an array using a modulo to loop back to the front once the index is size n.
+Simply need to do index % n, where n is the size of the array
+
+4. For 0 <= i < n, the neighbors of spin s[i] are s[i-1] && s[i+1]
+
+
+5. The neighbors of the first spin s[0] are s[n-1] and s[1]
+if (i-1) < 0 then i = n - 1
+
+6. The neighbors of the last spin s[n-1] are s[n-2] and s[0]
+
+*** A configuration of the spins is given by sigma (lower case greek letter)
+sigma will be our array of spins representing a configuration. 
+
+*** There are 2^n possible configurations from (1,...,1) to (-1,...,-1)
+
+MAGNETATION OF SPINS IS GIVEN BY SUM OF SPINS IN sigma. 
+
+double MagnetizationPerSpin(int sigma[], int n){
+
+double sum = 0;
+for(int i = 0; i < n; i++){
+ sum += sigma[i];
+}
+
+return sum/n;
+
+}
+
+PAIR CORRELATION PER SPIN IS GIVEN BY SUM OF PRODUCTS OF NEIGBORING SPINS in sigma
+
+double PairCorrelationPerSpin(int n, int sigma[]){
+double correlation = 0;
+
+for(int i = 0; i < n; i++){
+int j = i+1;
+if(j >= n){
+j = j % n;
+}
+
+correlation += sigma[i]*sigma[j];
+}
+
+return correlation/n;
+}
+
+Professor Mane's Function:
+public static double PairCorrelationPerSpin(int sigma[], int n){
+double correlation = sigma[0] * sigma[n-1];
+
+for(int i = 1; i < n; i++){
+ correlation += sigma[i-1]*sigma[i];
+}
+
+return correlation/n;
+}
+
+
+By construction range of m(sigma) and cp(sigma) is -1 <= m || cp <= 1
+
+*For convenience, n will always be an even number
+
+-----------------------------------------------------------------
+The Obvious:
+
+1. When all the spins are up all spins are +1, then both m=1 and cp=1
+
+2. When all the spins are down, spins are -1, then m = -1 and cp=1 still because -1 * -1
+
+3. When the spins alternate in sign + - + - +...., then m = 0; and cp = -1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

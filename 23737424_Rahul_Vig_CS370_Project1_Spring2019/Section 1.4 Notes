@@ -1,0 +1,47 @@
+Section 1.4: Thermodynamic Definitions (Continued)
+
+Now that we've figured out how to find the magnetization of spins 
+and pair correlation per spin. We need to calculate the thermodynamic 
+average of both m and cp.
+
+The thermodynamic average values are denotes by <m> and <cp>
+These are the weighted average values of m and cp at a Temperature T
+	1. Introduce parameters B and C
+	2. The energy of a configuration of spins sigma is given as follows:
+	
+	E(sigma) = - [Sum from i=1 to n] of (B*sigma[i] + C*sigma[i]*sigma[i+1])
+	
+	
+
+public static double EnergyOfConfiguration(int B, int C, int sigma[], int n){
+double energy = 0;
+int j;
+for(int i = 0; i < n; i++){
+j = i+1;
+
+if(j >= n){
+j = j % n;
+}
+
+energy += ((B*sigma[i]) + (C*sigma[i]*sigma[j]));
+
+
+}
+if((energy * -1) == (-0.0)){
+  return 0;
+}else{
+  return (energy * -1);
+}
+}
+
+<m> = Eq. 1.4.2a in Specs
+<cp> = Eq. 1.4.2b in Specs
+
+These equations will only work for n <= 20, however for larger n we must use
+the Metropolis algorithm. 
+
+Brute force gives us the exact answer, but computations is much to slow. 
+Instead we must use a faster algorithm to get an approximate answer. 
+
+
+
